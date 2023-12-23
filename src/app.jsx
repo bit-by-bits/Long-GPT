@@ -11,8 +11,8 @@ import ChatApp from "./components/ChatApp";
 import logo from "./assets/logo.png";
 
 const App = () => {
-  const dummyAvatarImage = "https://via.placeholder.com/150";
-  const dummyName = "John Doe";
+  const dummyAvatarImage = "https://picsum.photos/200/200?grayscale&random=1";
+  const dummyName = "Ankur Pandey";
 
   const { Content, Sider } = Layout;
 

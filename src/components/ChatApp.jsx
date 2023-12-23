@@ -149,11 +149,10 @@ const ChatApp = ({ dark, toggle }) => {
         dark={dark}
         input={inputValue}
         change={handleInputChange}
-        suggest={setInputValue}
         send={handleMessageSend}
       />
-      <Toggle fxn={toggle} bgt={dark} />
       <Clear fxn={handleClearChat} bgt={dark} />
+      <Toggle fxn={toggle} bgt={dark} />
     </div>
   );
 };

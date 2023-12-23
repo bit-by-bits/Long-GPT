@@ -2,7 +2,7 @@ import { Button, Input } from "antd";
 import { SendOutlined } from "@ant-design/icons";
 
 // eslint-disable-next-line react/prop-types
-const TextInput = ({ dark, input, change, suggest, send }) => {
+const TextInput = ({ dark, input, change, send }) => {
   const { TextArea } = Input;
 
   const handleKeyPress = e => {
