@@ -6,3 +6,12 @@
 #darkMenu .ant-menu-item-selected {
   background-color: #1a7f64;
 }
+
+textarea {
+  resize: none;
+}
+
+/* change placeholder color */
+#greyHolder::placeholder {
+  color: rgba(256, 256, 256, 0.25);
+}

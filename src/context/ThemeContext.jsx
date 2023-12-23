@@ -1,20 +1,32 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useState, useEffect } from "react";
 
 const ThemeContext = createContext();
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const useTheme = () => {
   return useContext(ThemeContext);
 };
 
 // eslint-disable-next-line react/prop-types
 export const ThemeProvider = ({ children }) => {
-  const [darkTheme, setDarkTheme] = useState(false);
+  const [darkTheme, setDarkTheme] = useState(() => {
+    const savedTheme = localStorage.getItem("theme");
+    return savedTheme ? JSON.parse(savedTheme) : false;
+  });
 
   const toggleTheme = () => {
-    setDarkTheme(prevTheme => !prevTheme);
+    setDarkTheme(prevTheme => {
+      const newTheme = !prevTheme;
+      localStorage.setItem("theme", JSON.stringify(newTheme));
+      return newTheme;
+    });
   };
 
   const themeValue = { darkTheme, toggleTheme };
+
+  useEffect(() => {
+    localStorage.setItem("theme", JSON.stringify(darkTheme));
+  }, [darkTheme]);
 
   return (
     <ThemeContext.Provider value={themeValue}>{children}</ThemeContext.Provider>

@@ -51,8 +51,9 @@ const TextInput = ({ input, change, send }) => {
       }}
     >
       <TextArea
-        placeholder="Type a message"
-        autoSize={{ minRows: 1, maxRows: 5 }}
+        id={dark ? "greyHolder" : ""}
+        placeholder={`Type ${width < 480 && !collapsed ? "here" : "a message"}`}
+        autoSize={{ minRows: 1, maxRows: 1 }}
         style={{
           flex: 1,
           marginRight: "10px",
@@ -62,6 +63,7 @@ const TextInput = ({ input, change, send }) => {
           color: dark ? colors.white : colors.black,
           overflowX: "hidden",
           overflowY: "auto",
+          boxShadow: "none",
         }}
         value={input}
         onChange={change}

@@ -96,7 +96,12 @@ const App = () => {
             />
           )}
         </div>
-        <div style={{ position: "fixed", bottom: 0 }}>
+        <div
+          style={{
+            position: "fixed",
+            bottom: 0,
+          }}
+        >
           <div
             style={{
               position: "fixed",
@@ -105,7 +110,15 @@ const App = () => {
               flexDirection: "row",
               justifyContent: "space-between",
               alignItems: "center",
-              padding: "16px 8px",
+              padding: "16px 10px",
+              width:
+                width >= 1200
+                  ? "20vw"
+                  : width >= 768
+                    ? "30vw"
+                    : width >= 576
+                      ? "40vw"
+                      : "50vw",
             }}
           >
             <div style={{ display: "flex", alignItems: "center" }}>
