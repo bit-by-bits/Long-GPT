@@ -1,4 +1,5 @@
 import { Button } from "antd";
+import { DeleteOutlined } from "@ant-design/icons";
 import { useTheme } from "../context/ThemeContext";
 import { colors } from "../colors";
 import { useWindowWidth } from "../context/WidthContext";
@@ -30,7 +31,7 @@ const Clear = ({ fxn }) => {
         color: dark ? colors.white : colors.black,
       }}
     >
-      Clear Chats
+      {width < 580 && !collapsed ? <DeleteOutlined /> : "Clear Chats"}
     </Button>
   );
 };

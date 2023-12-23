@@ -1,9 +1,12 @@
 import { Button } from "antd";
+import { BulbOutlined } from "@ant-design/icons";
 import { useTheme } from "../context/ThemeContext";
 import { colors } from "../colors";
+import { useWindowWidth } from "../context/WidthContext";
 
 const Toggle = () => {
   const { darkTheme: dark, toggleTheme: toggle } = useTheme();
+  const { windowWidth: width, collapsed } = useWindowWidth();
 
   return (
     <Button
@@ -17,7 +20,7 @@ const Toggle = () => {
         color: dark ? colors.white : colors.black,
       }}
     >
-      Toggle Dark Theme
+      {width < 480 && !collapsed ? <BulbOutlined /> : "Toggle Theme"}
     </Button>
   );
 };

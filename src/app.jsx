@@ -105,7 +105,7 @@ const App = () => {
               flexDirection: "row",
               justifyContent: "space-between",
               alignItems: "center",
-              padding: "16px",
+              padding: "16px 8px",
             }}
           >
             <div style={{ display: "flex", alignItems: "center" }}>

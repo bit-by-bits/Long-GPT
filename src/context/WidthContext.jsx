@@ -9,7 +9,7 @@ export const useWindowWidth = () => {
 // eslint-disable-next-line react/prop-types
 export const WindowWidthProvider = ({ children }) => {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-  const [collapsed, setCollapsed] = useState(false);
+  const [collapsed, setCollapsed] = useState(true);
 
   const handleResize = () => {
     setWindowWidth(window.innerWidth);

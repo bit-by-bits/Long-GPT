@@ -15,17 +15,24 @@ const ChatApp = () => {
 
   const chatWindowRef = useRef(null);
   const [inputValue, setInputValue] = useState("");
-  const [messages, setMessages] = useState([
-    {
-      id: 1,
-      text: "Hello! How can I assist you today?",
-      isBot: true,
-      timestamp: Date.now(),
-    },
-  ]);
+  const [messages, setMessages] = useState(() => {
+    const savedMessages = localStorage.getItem("chatMessages");
+    return savedMessages
+      ? JSON.parse(savedMessages)
+      : [
+          {
+            id: 1,
+            text: "Hello! How can I assist you today?",
+            isBot: true,
+            timestamp: Date.now(),
+          },
+        ];
+  });
 
   useEffect(() => {
-    chatWindowRef.current.scrollTop = chatWindowRef.current.scrollHeight;
+    if (chatWindowRef.current)
+      chatWindowRef.current.scrollTop = chatWindowRef.current.scrollHeight;
+    localStorage.setItem("chatMessages", JSON.stringify(messages));
   }, [messages]);
 
   const handleMessageSend = async () => {

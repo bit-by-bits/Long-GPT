@@ -9,7 +9,7 @@ const TextInput = ({ input, change, send }) => {
   const { TextArea } = Input;
 
   const { darkTheme: dark } = useTheme();
-  const { windowWidth: width } = useWindowWidth();
+  const { windowWidth: width, collapsed } = useWindowWidth();
 
   const handleKeyPress = e => {
     if (e.key === "Enter" && e.shiftKey) {
@@ -36,7 +36,15 @@ const TextInput = ({ input, change, send }) => {
         padding: "20px",
         display: "flex",
         maxHeight: "100px",
-        width: width < 992 ? "100vw" : "80vw",
+        width: collapsed
+          ? "100vw"
+          : width >= 1200
+            ? "80vw"
+            : width >= 768
+              ? "70vw"
+              : width >= 576
+                ? "60vw"
+                : "50vw",
         alignItems: "center",
         background: dark ? colors.grey_100 : colors.white_200,
         color: dark ? colors.white : colors.black,
@@ -50,7 +58,7 @@ const TextInput = ({ input, change, send }) => {
           marginRight: "10px",
           borderRadius: 20,
           background: "transparent",
-          border: `1px solid ${dark ? "#98999F" : "#d9d9d9"}`,
+          border: `1px solid ${dark ? "rgba(256, 256, 256, 0.25)" : "#d9d9d9"}`,
           color: dark ? colors.white : colors.black,
           overflowX: "hidden",
           overflowY: "auto",
