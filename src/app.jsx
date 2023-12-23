@@ -1,4 +1,4 @@
-import { createElement, useState } from "react";
+import { createElement, useEffect, useState } from "react";
 import {
   MessageOutlined,
   PlusCircleOutlined,
@@ -41,6 +41,15 @@ const App = () => {
   const toggleTheme = () => {
     setDarkTheme(prevTheme => !prevTheme);
   };
+
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    const handleResize = () => setWindowWidth(window.innerWidth);
+    window.addEventListener("resize", handleResize);
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   return (
     <Layout style={{ height: "100vh", width: "100vw", overflow: "hidden" }}>
@@ -110,22 +119,24 @@ const App = () => {
                 {NAME}
               </span>
             </div>
-            <div>
-              <Button
-                type="primary"
-                icon={<SettingOutlined />}
-                shape="circle"
-                onClick={() => message.error("Cannot Open Settings!")}
-                style={{ backgroundColor: "#1a7f64", marginRight: 10 }}
-              />
-              <Button
-                type="primary"
-                icon={<LogoutOutlined />}
-                shape="circle"
-                onClick={() => message.error("Cannot Logout!")}
-                style={{ backgroundColor: "#ef4444" }}
-              />
-            </div>
+            {windowWidth >= 1200 && (
+              <div>
+                <Button
+                  type="primary"
+                  icon={<SettingOutlined />}
+                  shape="circle"
+                  onClick={() => message.error("Cannot Open Settings!")}
+                  style={{ backgroundColor: "#1a7f64", marginRight: 10 }}
+                />
+                <Button
+                  type="primary"
+                  icon={<LogoutOutlined />}
+                  shape="circle"
+                  onClick={() => message.error("Cannot Logout!")}
+                  style={{ backgroundColor: "#ef4444" }}
+                />
+              </div>
+            )}
           </div>
         </div>
       </Sider>
