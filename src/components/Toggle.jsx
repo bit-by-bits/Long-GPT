@@ -1,17 +1,20 @@
 import { Button } from "antd";
+import { useTheme } from "../context/ThemeContext";
+import { colors } from "../colors";
 
-// eslint-disable-next-line react/prop-types
-const Toggle = ({ fxn, bgt }) => {
+const Toggle = () => {
+  const { darkTheme: dark, toggleTheme: toggle } = useTheme();
+
   return (
     <Button
       type="primary"
-      onClick={fxn}
+      onClick={toggle}
       style={{
         top: 10,
         right: 10,
         position: "fixed",
-        background: bgt ? "#1a7f64" : "#ffffff",
-        color: bgt ? "#ffffff" : "#000000",
+        background: dark ? colors.green : colors.white,
+        color: dark ? colors.white : colors.black,
       }}
     >
       Toggle Dark Theme

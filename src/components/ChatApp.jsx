@@ -6,9 +6,13 @@ import Toggle from "./Toggle";
 import TextInput from "./TextInput";
 import Clear from "./Clear";
 import generateContent from "../api/post";
+import { useTheme } from "../context/ThemeContext";
+import { colors } from "../colors";
 
 // eslint-disable-next-line react/prop-types
-const ChatApp = ({ dark, toggle }) => {
+const ChatApp = () => {
+  const { darkTheme: dark } = useTheme();
+
   const chatWindowRef = useRef(null);
   const [inputValue, setInputValue] = useState("");
   const [messages, setMessages] = useState([
@@ -81,8 +85,8 @@ const ChatApp = ({ dark, toggle }) => {
         display: "flex",
         flexDirection: "column",
         overflow: "hidden",
-        background: dark ? "#343541" : "#EFF4F8",
-        color: dark ? "#ffffff" : "#000000",
+        background: dark ? colors.grey_100 : colors.white_200,
+        color: dark ? colors.white : colors.black,
       }}
     >
       <div
@@ -116,12 +120,12 @@ const ChatApp = ({ dark, toggle }) => {
                 style={{
                   backgroundColor: message.isBot
                     ? dark
-                      ? "#2A2A34"
-                      : "#001529"
+                      ? colors.grey_200
+                      : colors.darkblue_200
                     : dark
-                      ? "#202123"
-                      : "#6D60FF",
-                  color: "#ffffff",
+                      ? colors.grey_300
+                      : colors.purple,
+                  color: colors.white,
                   padding: "10px 15px",
                   borderRadius: "10px",
                   maxWidth: `${message.text.length > 100 ? "90%" : "70%"}`,
@@ -144,13 +148,12 @@ const ChatApp = ({ dark, toggle }) => {
         />
       </div>
       <TextInput
-        dark={dark}
         input={inputValue}
         change={handleInputChange}
         send={handleMessageSend}
       />
-      <Clear fxn={handleClearChat} bgt={dark} />
-      <Toggle fxn={toggle} bgt={dark} />
+      <Clear fxn={handleClearChat} />
+      <Toggle />
     </div>
   );
 };

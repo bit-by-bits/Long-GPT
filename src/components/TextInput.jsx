@@ -1,21 +1,15 @@
 import { Button, Input } from "antd";
 import { SendOutlined } from "@ant-design/icons";
-import { useLayoutEffect, useState } from "react";
+import { useTheme } from "../context/ThemeContext";
+import { useWindowWidth } from "../context/WidthContext";
+import { colors } from "../colors";
 
 // eslint-disable-next-line react/prop-types
-const TextInput = ({ dark, input, change, send }) => {
+const TextInput = ({ input, change, send }) => {
   const { TextArea } = Input;
 
-  const [isMobile, setIsMobile] = useState(window.innerWidth <= 992);
-
-  useLayoutEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth <= 992);
-    };
-
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
+  const { darkTheme: dark } = useTheme();
+  const { windowWidth: width } = useWindowWidth();
 
   const handleKeyPress = e => {
     if (e.key === "Enter" && e.shiftKey) {
@@ -42,10 +36,10 @@ const TextInput = ({ dark, input, change, send }) => {
         padding: "20px",
         display: "flex",
         maxHeight: "100px",
-        width: isMobile ? "100vw" : "80vw",
+        width: width < 992 ? "100vw" : "80vw",
         alignItems: "center",
-        background: dark ? "#343541" : "#EFF4F8",
-        color: dark ? "#ffffff" : "#000000",
+        background: dark ? colors.grey_100 : colors.white_200,
+        color: dark ? colors.white : colors.black,
       }}
     >
       <TextArea
@@ -56,10 +50,10 @@ const TextInput = ({ dark, input, change, send }) => {
           marginRight: "10px",
           borderRadius: 20,
           background: "transparent",
-          border: `1px solid ${dark ? "#6c757d" : "#d9d9d9"}`,
-          color: dark ? "#ffffff" : "#000000",
-          overflowX: "hidden", // Hide x-scroll
-          overflowY: "auto", // Show y-scroll
+          border: `1px solid ${dark ? "#98999F" : "#d9d9d9"}`,
+          color: dark ? colors.white : colors.black,
+          overflowX: "hidden",
+          overflowY: "auto",
         }}
         value={input}
         onChange={change}
@@ -67,7 +61,7 @@ const TextInput = ({ dark, input, change, send }) => {
       />
       <Button
         type="primary"
-        style={{ backgroundColor: dark ? "#1a7f64" : "#6D60FF" }}
+        style={{ backgroundColor: dark ? colors.green : colors.purple }}
         shape="circle"
         icon={<SendOutlined />}
         onClick={send}

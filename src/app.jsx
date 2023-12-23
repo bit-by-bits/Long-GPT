@@ -1,4 +1,4 @@
-import { createElement, useEffect, useState } from "react";
+import { createElement } from "react";
 import {
   MessageOutlined,
   PlusCircleOutlined,
@@ -9,6 +9,9 @@ import {
 import { Layout, Menu, Avatar, Button, message } from "antd";
 import ChatApp from "./components/ChatApp";
 import logo from "./assets/logo.png";
+import { useTheme } from "./context/ThemeContext";
+import { useWindowWidth } from "./context/WidthContext";
+import { colors } from "./colors";
 
 const App = () => {
   const NAME = "Ankur Pandey";
@@ -36,33 +39,31 @@ const App = () => {
     },
   ];
 
-  const [darkTheme, setDarkTheme] = useState(false);
-
-  const toggleTheme = () => {
-    setDarkTheme(prevTheme => !prevTheme);
-  };
-
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-
-  useEffect(() => {
-    const handleResize = () => setWindowWidth(window.innerWidth);
-    window.addEventListener("resize", handleResize);
-
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
+  const { darkTheme: dark } = useTheme();
+  const { windowWidth: width, collapsed, setCollapsed } = useWindowWidth();
 
   return (
     <Layout style={{ height: "100vh", width: "100vw", overflow: "hidden" }}>
       <Sider
         breakpoint="lg"
         collapsedWidth="0"
-        width="20%"
+        collapsed={collapsed}
+        onCollapse={() => setCollapsed(!collapsed)}
+        width={
+          width >= 1200
+            ? "20vw"
+            : width >= 768
+              ? "30vw"
+              : width >= 576
+                ? "40vw"
+                : "50vw"
+        }
         style={{
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",
           height: "100vh",
-          backgroundColor: darkTheme ? "black" : "#F8FAFC",
+          backgroundColor: dark ? colors.black : colors.white_100,
         }}
       >
         <div>
@@ -77,10 +78,10 @@ const App = () => {
           >
             <img src={logo} height={40} alt="Logo" />
           </div>
-          {darkTheme ? (
+          {dark ? (
             <Menu
               id="darkMenu"
-              style={{ border: "none", backgroundColor: "black" }}
+              style={{ border: "none", backgroundColor: colors.black }}
               theme="dark"
               mode="inline"
               items={menuItems}
@@ -88,19 +89,18 @@ const App = () => {
             />
           ) : (
             <Menu
-              style={{ border: "none", backgroundColor: "#F8FAFC" }}
+              style={{ border: "none", backgroundColor: colors.white_100 }}
               mode="inline"
               items={menuItems}
               selectedKeys={["1"]}
             />
           )}
         </div>
-        <div style={{ position: "fixed", bottom: 0, width: "20%" }}>
+        <div style={{ position: "fixed", bottom: 0 }}>
           <div
             style={{
               position: "fixed",
               bottom: 0,
-              width: "20%",
               display: "flex",
               flexDirection: "row",
               justifyContent: "space-between",
@@ -109,31 +109,32 @@ const App = () => {
             }}
           >
             <div style={{ display: "flex", alignItems: "center" }}>
-              <Avatar src={IMAGE} style={{ marginRight: "8px" }} />
+              <Avatar src={IMAGE} />
               <span
                 style={{
-                  color: darkTheme ? "white" : "#1B254B",
+                  color: dark ? colors.white : colors.dark_blue,
                   fontWeight: 600,
+                  margin: "0 10px",
                 }}
               >
                 {NAME}
               </span>
             </div>
-            {windowWidth >= 1200 && (
+            {width > 479 && (
               <div>
                 <Button
                   type="primary"
                   icon={<SettingOutlined />}
                   shape="circle"
                   onClick={() => message.error("Cannot Open Settings!")}
-                  style={{ backgroundColor: "#1a7f64", marginRight: 10 }}
+                  style={{ backgroundColor: colors.green, marginRight: 10 }}
                 />
                 <Button
                   type="primary"
                   icon={<LogoutOutlined />}
                   shape="circle"
                   onClick={() => message.error("Cannot Logout!")}
-                  style={{ backgroundColor: "#ef4444" }}
+                  style={{ backgroundColor: colors.red }}
                 />
               </div>
             )}
@@ -142,7 +143,7 @@ const App = () => {
       </Sider>
       <Layout>
         <Content style={{ margin: 0 }}>
-          <ChatApp dark={darkTheme} toggle={toggleTheme} />
+          <ChatApp />
         </Content>
       </Layout>
     </Layout>

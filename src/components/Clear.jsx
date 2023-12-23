@@ -1,17 +1,33 @@
 import { Button } from "antd";
+import { useTheme } from "../context/ThemeContext";
+import { colors } from "../colors";
+import { useWindowWidth } from "../context/WidthContext";
 
 // eslint-disable-next-line react/prop-types
-const Clear = ({ fxn, bgt }) => {
+const Clear = ({ fxn }) => {
+  const { darkTheme: dark } = useTheme();
+  const { windowWidth: width, collapsed } = useWindowWidth();
+
   return (
     <Button
       type="primary"
       onClick={fxn}
       style={{
-        position: "fixed",
         top: 10,
-        left: "calc(20vw + 10px)",
-        background: bgt ? "#ef4444" : "#ffffff",
-        color: bgt ? "#ffffff" : "#000000",
+        position: "fixed",
+        left: collapsed
+          ? "10px"
+          : `calc(${
+              width >= 1200
+                ? "20vw"
+                : width >= 768
+                  ? "30vw"
+                  : width >= 576
+                    ? "40vw"
+                    : "50vw"
+            } + 10px)`,
+        background: dark ? colors.red : colors.white,
+        color: dark ? colors.white : colors.black,
       }}
     >
       Clear Chats
