@@ -11,12 +11,12 @@ import ChatApp from "./components/ChatApp";
 import logo from "./assets/logo.png";
 
 const App = () => {
-  const dummyAvatarImage = "https://picsum.photos/200/200?grayscale&random=1";
-  const dummyName = "Ankur Pandey";
+  const NAME = "Ankur Pandey";
+  const IMAGE = "https://picsum.photos/200/200?grayscale&random=1";
 
   const { Content, Sider } = Layout;
 
-  const pastConversationItems = [
+  const menuItems = [
     {
       key: "1",
       icon: createElement(MessageOutlined),
@@ -74,14 +74,14 @@ const App = () => {
               style={{ border: "none", backgroundColor: "black" }}
               theme="dark"
               mode="inline"
-              items={pastConversationItems}
+              items={menuItems}
               selectedKeys={["1"]}
             />
           ) : (
             <Menu
               style={{ border: "none", backgroundColor: "#F8FAFC" }}
               mode="inline"
-              items={pastConversationItems}
+              items={menuItems}
               selectedKeys={["1"]}
             />
           )}
@@ -100,14 +100,14 @@ const App = () => {
             }}
           >
             <div style={{ display: "flex", alignItems: "center" }}>
-              <Avatar src={dummyAvatarImage} style={{ marginRight: "8px" }} />
+              <Avatar src={IMAGE} style={{ marginRight: "8px" }} />
               <span
                 style={{
                   color: darkTheme ? "white" : "#1B254B",
                   fontWeight: 600,
                 }}
               >
-                {dummyName}
+                {NAME}
               </span>
             </div>
             <div>

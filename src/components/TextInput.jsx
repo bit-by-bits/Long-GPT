@@ -1,9 +1,21 @@
 import { Button, Input } from "antd";
 import { SendOutlined } from "@ant-design/icons";
+import { useLayoutEffect, useState } from "react";
 
 // eslint-disable-next-line react/prop-types
 const TextInput = ({ dark, input, change, send }) => {
   const { TextArea } = Input;
+
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 992);
+
+  useLayoutEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 992);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const handleKeyPress = e => {
     if (e.key === "Enter" && e.shiftKey) {
@@ -27,10 +39,10 @@ const TextInput = ({ dark, input, change, send }) => {
       style={{
         position: "fixed",
         bottom: 0,
-        width: "80vw",
-        maxHeight: "100px",
         padding: "20px",
         display: "flex",
+        maxHeight: "100px",
+        width: isMobile ? "100vw" : "80vw",
         alignItems: "center",
         background: dark ? "#343541" : "#EFF4F8",
         color: dark ? "#ffffff" : "#000000",

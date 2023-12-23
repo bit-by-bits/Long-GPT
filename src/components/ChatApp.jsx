@@ -97,9 +97,7 @@ const ChatApp = ({ dark, toggle }) => {
           justifyContent: "flex-end",
           scrollbarWidth: "none",
           msOverflowStyle: "none",
-          "&::WebkitScrollbar": {
-            display: "none",
-          },
+          "&::WebkitScrollbar": { display: "none" },
         }}
       >
         <List

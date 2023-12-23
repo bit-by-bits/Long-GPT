@@ -7,9 +7,9 @@ const Toggle = ({ fxn, bgt }) => {
       type="primary"
       onClick={fxn}
       style={{
-        position: "fixed",
         top: 10,
         right: 10,
+        position: "fixed",
         background: bgt ? "#1a7f64" : "#ffffff",
         color: bgt ? "#ffffff" : "#000000",
       }}

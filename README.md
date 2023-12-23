@@ -1,8 +1,46 @@
-# React + Vite
+# LongGPT Chat Application
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A chat application built using React, Ant Design, and a custom GPT-based API for generating responses.
 
-Currently, two official plugins are available:
+## Overview
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+LongGPT is a chat application that uses a GPT-based model to generate responses based on user input. It provides a simple interface to interact with the bot in dark and light themes.
+
+## Tech Stack
+
+- React (Vite)
+- Axios
+- Ant Design
+- Moment.js
+
+## Installation
+
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/bit-by-bits/Long-GPT.git
+   ```
+
+2. Install dependencies:
+
+   ```bash
+   yarn
+   ```
+
+3. Start the application:
+
+   ```bash
+   yarn dev
+   ```
+
+## Usage
+
+Once the application is running, you can interact with the bot by typing messages in the chat input field. The bot will generate responses based on the input provided.
+
+## Configuration
+
+The application allows for toggling between light and dark themes. Additionally, it supports the dynamic rendering of conversation messages based on user input.
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).
