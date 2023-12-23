@@ -1,0 +1,8 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+#darkMenu .ant-menu-item-selected {
+  background-color: #1a7f64;
+}
