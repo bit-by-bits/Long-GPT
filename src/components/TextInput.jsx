@@ -7,7 +7,6 @@ import { colors } from "../colors";
 // eslint-disable-next-line react/prop-types
 const TextInput = ({ input, change, send }) => {
   const { TextArea } = Input;
-
   const { darkTheme: dark } = useTheme();
   const { windowWidth: width, collapsed } = useWindowWidth();
 
@@ -28,43 +27,45 @@ const TextInput = ({ input, change, send }) => {
     }
   };
 
+  const inputStyle = {
+    flex: 1,
+    marginRight: "10px",
+    borderRadius: 20,
+    background: "transparent",
+    border: `1px solid ${dark ? "rgba(256, 256, 256, 0.25)" : "#d9d9d9"}`,
+    color: dark ? colors.white : colors.black,
+    overflowX: "hidden",
+    overflowY: "auto",
+    boxShadow: "none",
+  };
+
+  const containerStyle = {
+    position: "fixed",
+    bottom: 0,
+    padding: "20px",
+    display: "flex",
+    maxHeight: "100px",
+    width: collapsed
+      ? "100vw"
+      : width >= 1200
+        ? "80vw"
+        : width >= 768
+          ? "70vw"
+          : width >= 576
+            ? "60vw"
+            : "50vw",
+    alignItems: "center",
+    background: dark ? colors.grey_100 : colors.white_200,
+    color: dark ? colors.white : colors.black,
+  };
+
   return (
-    <div
-      style={{
-        position: "fixed",
-        bottom: 0,
-        padding: "20px",
-        display: "flex",
-        maxHeight: "100px",
-        width: collapsed
-          ? "100vw"
-          : width >= 1200
-            ? "80vw"
-            : width >= 768
-              ? "70vw"
-              : width >= 576
-                ? "60vw"
-                : "50vw",
-        alignItems: "center",
-        background: dark ? colors.grey_100 : colors.white_200,
-        color: dark ? colors.white : colors.black,
-      }}
-    >
+    <div style={containerStyle}>
       <TextArea
         id={dark ? "greyHolder" : ""}
         placeholder={`Type ${width < 480 && !collapsed ? "here" : "a message"}`}
         autoSize={{ minRows: 1, maxRows: 1 }}
-        style={{
-          flex: 1,
-          marginRight: "10px",
-          borderRadius: 20,
-          background: "transparent",
-          border: `1px solid ${dark ? "rgba(256, 256, 256, 0.25)" : "#d9d9d9"}`,
-          color: dark ? colors.white : colors.black,
-          overflowX: "hidden",
-          overflowY: "auto",
-          boxShadow: "none",
-        }}
+        style={inputStyle}
         value={input}
         onChange={change}
         onKeyDown={handleKeyPress}

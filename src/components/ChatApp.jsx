@@ -9,7 +9,6 @@ import generateContent from "../api/post";
 import { useTheme } from "../context/ThemeContext";
 import { colors } from "../colors";
 
-// eslint-disable-next-line react/prop-types
 const ChatApp = () => {
   const { darkTheme: dark } = useTheme();
 
@@ -30,8 +29,9 @@ const ChatApp = () => {
   });
 
   useEffect(() => {
-    if (chatWindowRef.current)
+    if (chatWindowRef.current) {
       chatWindowRef.current.scrollTop = chatWindowRef.current.scrollHeight;
+    }
     localStorage.setItem("chatMessages", JSON.stringify(messages));
   }, [messages]);
 
@@ -43,7 +43,8 @@ const ChatApp = () => {
         isBot: false,
         timestamp: Date.now(),
       };
-      setMessages([...messages, newMessage]);
+
+      setMessages(prevMessages => [...prevMessages, newMessage]);
       setInputValue("");
 
       try {
@@ -54,6 +55,7 @@ const ChatApp = () => {
           isBot: true,
           timestamp: Date.now(),
         };
+
         setMessages(prevMessages => [...prevMessages, botReply]);
       } catch (error) {
         console.error("Error generating bot response:", error.message);
@@ -63,6 +65,7 @@ const ChatApp = () => {
           isBot: true,
           timestamp: Date.now(),
         };
+
         setMessages(prevMessages => [...prevMessages, botReply]);
       }
     }

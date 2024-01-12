@@ -9,28 +9,26 @@ const Clear = ({ fxn }) => {
   const { darkTheme: dark } = useTheme();
   const { windowWidth: width, collapsed } = useWindowWidth();
 
+  const buttonStyle = {
+    top: 10,
+    position: "fixed",
+    left: collapsed
+      ? "10px"
+      : `calc(${
+          width >= 1200
+            ? "20vw"
+            : width >= 768
+              ? "30vw"
+              : width >= 576
+                ? "40vw"
+                : "50vw"
+        } + 10px)`,
+    background: dark ? colors.red : colors.white,
+    color: dark ? colors.white : colors.black,
+  };
+
   return (
-    <Button
-      type="primary"
-      onClick={fxn}
-      style={{
-        top: 10,
-        position: "fixed",
-        left: collapsed
-          ? "10px"
-          : `calc(${
-              width >= 1200
-                ? "20vw"
-                : width >= 768
-                  ? "30vw"
-                  : width >= 576
-                    ? "40vw"
-                    : "50vw"
-            } + 10px)`,
-        background: dark ? colors.red : colors.white,
-        color: dark ? colors.white : colors.black,
-      }}
-    >
+    <Button type="primary" onClick={fxn} style={buttonStyle}>
       {width < 580 && !collapsed ? <DeleteOutlined /> : "Clear Chats"}
     </Button>
   );

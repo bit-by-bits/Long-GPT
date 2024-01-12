@@ -5,7 +5,9 @@ import App from "./app";
 import { ThemeProvider } from "./context/ThemeContext";
 import { WindowWidthProvider } from "./context/WidthContext";
 
-ReactDOM.createRoot(document.getElementById("root")).render(
+const rootElement = document.getElementById("root");
+
+ReactDOM.createRoot(rootElement).render(
   <React.StrictMode>
     <ThemeProvider>
       <WindowWidthProvider>

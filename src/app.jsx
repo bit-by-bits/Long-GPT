@@ -19,6 +19,16 @@ const App = () => {
 
   const { Content, Sider } = Layout;
 
+  const { darkTheme: dark } = useTheme();
+  const { windowWidth: width, collapsed, setCollapsed } = useWindowWidth();
+
+  const getMenuWidth = () => {
+    if (width >= 1200) return "20vw";
+    if (width >= 768) return "30vw";
+    if (width >= 576) return "40vw";
+    return "50vw";
+  };
+
   const menuItems = [
     {
       key: "1",
@@ -39,8 +49,23 @@ const App = () => {
     },
   ];
 
-  const { darkTheme: dark } = useTheme();
-  const { windowWidth: width, collapsed, setCollapsed } = useWindowWidth();
+  const getDynamicStyle = () => ({
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-between",
+    height: "100vh",
+    backgroundColor: dark ? colors.black : colors.white_100,
+  });
+
+  const getMenuStyle = () => ({
+    border: "none",
+    backgroundColor: dark ? colors.black : colors.white_100,
+  });
+
+  const getBottomBarStyle = () => ({
+    position: "fixed",
+    bottom: 0,
+  });
 
   return (
     <Layout style={{ height: "100vh", width: "100vw", overflow: "hidden" }}>
@@ -49,22 +74,8 @@ const App = () => {
         collapsedWidth="0"
         collapsed={collapsed}
         onCollapse={() => setCollapsed(!collapsed)}
-        width={
-          width >= 1200
-            ? "20vw"
-            : width >= 768
-              ? "30vw"
-              : width >= 576
-                ? "40vw"
-                : "50vw"
-        }
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "space-between",
-          height: "100vh",
-          backgroundColor: dark ? colors.black : colors.white_100,
-        }}
+        width={getMenuWidth()}
+        style={getDynamicStyle()}
       >
         <div>
           <div
@@ -78,47 +89,25 @@ const App = () => {
           >
             <img src={logo} height={40} alt="Logo" />
           </div>
-          {dark ? (
-            <Menu
-              id="darkMenu"
-              style={{ border: "none", backgroundColor: colors.black }}
-              theme="dark"
-              mode="inline"
-              items={menuItems}
-              selectedKeys={["1"]}
-            />
-          ) : (
-            <Menu
-              style={{ border: "none", backgroundColor: colors.white_100 }}
-              mode="inline"
-              items={menuItems}
-              selectedKeys={["1"]}
-            />
-          )}
+          <Menu
+            id="darkMenu"
+            style={getMenuStyle()}
+            theme={dark ? "dark" : "light"}
+            mode="inline"
+            items={menuItems}
+            selectedKeys={["1"]}
+          />
         </div>
-        <div
-          style={{
-            position: "fixed",
-            bottom: 0,
-          }}
-        >
+        <div style={getBottomBarStyle()}>
           <div
             style={{
-              position: "fixed",
-              bottom: 0,
+              ...getBottomBarStyle(),
               display: "flex",
               flexDirection: "row",
               justifyContent: "space-between",
               alignItems: "center",
               padding: "16px 10px",
-              width:
-                width >= 1200
-                  ? "20vw"
-                  : width >= 768
-                    ? "30vw"
-                    : width >= 576
-                      ? "40vw"
-                      : "50vw",
+              width: getMenuWidth(),
             }}
           >
             <div style={{ display: "flex", alignItems: "center" }}>

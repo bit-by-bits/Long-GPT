@@ -22,11 +22,11 @@ export const ThemeProvider = ({ children }) => {
     });
   };
 
-  const themeValue = { darkTheme, toggleTheme };
-
   useEffect(() => {
     localStorage.setItem("theme", JSON.stringify(darkTheme));
   }, [darkTheme]);
+
+  const themeValue = { darkTheme, toggleTheme };
 
   return (
     <ThemeContext.Provider value={themeValue}>{children}</ThemeContext.Provider>

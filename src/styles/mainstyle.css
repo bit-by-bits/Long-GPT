@@ -1,10 +1,20 @@
+:root {
+  --main-bg-color: #1a7f64;
+  --selected-text-color: #ffffff;
+  --placeholder-color: rgba(256, 256, 256, 0.25);
+}
+
 * {
   margin: 0;
   padding: 0;
 }
 
 #darkMenu .ant-menu-item-selected {
-  background-color: #1a7f64;
+  background-color: var(--main-bg-color);
+}
+
+.ant-menu-item-selected {
+  color: var(--selected-text-color) !important;
 }
 
 textarea {
@@ -13,5 +23,5 @@ textarea {
 
 /* change placeholder color */
 #greyHolder::placeholder {
-  color: rgba(256, 256, 256, 0.25);
+  color: var(--placeholder-color);
 }
